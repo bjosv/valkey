@@ -2,6 +2,7 @@ name: "CodeQL"
 
 on:
   pull_request:
+  push:
   schedule:
     # run weekly new vulnerability was added to the database
     - cron: '0 0 * * 0'
@@ -13,7 +14,7 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    if: github.event_name != 'schedule' || github.repository == 'valkey-io/valkey'
+    # if: github.event_name != 'schedule' || github.repository == 'valkey-io/valkey'
     permissions:
       security-events: write
 
