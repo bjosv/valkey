@@ -1,9 +1,10 @@
 name: Clang Format Check
 
-on:
-  pull_request:
-    paths:
-      - 'src/**'
+on: [push, pull_request]
+# on:
+#   pull_request:
+#     paths:
+#       - 'src/**'
 
 jobs:
   clang-format-check:
@@ -21,10 +22,10 @@ jobs:
     - name: Run clang-format
       id: clang-format
       run: |
+        shopt -s globstar
         # Run clang-format and capture the diff
         cd src
         clang-format -i **/*.c **/*.h
-        # Capture the diff output
         DIFF=$(git diff)
         if [ ! -z "$DIFF" ]; then
           echo "::set-output name=diff::$DIFF"
