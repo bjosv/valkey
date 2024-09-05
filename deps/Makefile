@@ -36,7 +36,7 @@ ifneq ($(shell sh -c '[ -f .make-ldflags ] && cat .make-ldflags || echo none'), 
 endif
 
 distclean:
-	-(cd hiredis && $(MAKE) clean) > /dev/null || true
+	-(cd libvalkey && $(MAKE) clean) > /dev/null || true
 	-(cd linenoise && $(MAKE) clean) > /dev/null || true
 	-(cd lua && $(MAKE) clean) > /dev/null || true
 	-(cd jemalloc && [ -f Makefile ] && $(MAKE) distclean) > /dev/null || true
@@ -47,14 +47,14 @@ distclean:
 .PHONY: distclean
 
 ifneq (,$(filter $(BUILD_TLS),yes module))
-    HIREDIS_MAKE_FLAGS = USE_SSL=1
+    LIBVALKEY_MAKE_FLAGS = USE_SSL=1
 endif
 
-hiredis: .make-prerequisites
+libvalkey: .make-prerequisites
 	@printf '%b %b\n' $(MAKECOLOR)MAKE$(ENDCOLOR) $(BINCOLOR)$@$(ENDCOLOR)
-	cd hiredis && $(MAKE) static $(HIREDIS_MAKE_FLAGS)
+	cd libvalkey && $(MAKE) static $(LIBVALKEY_MAKE_FLAGS)
 
-.PHONY: hiredis
+.PHONY: libvalkey
 
 linenoise: .make-prerequisites
 	@printf '%b %b\n' $(MAKECOLOR)MAKE$(ENDCOLOR) $(BINCOLOR)$@$(ENDCOLOR)
