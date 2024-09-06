@@ -43,8 +43,7 @@
 #include <pthread.h>
 #include <stdatomic.h>
 
-#include <sdscompat.h> /* Use hiredis' sds compat header that maps sds calls to their hi_ variants */
-#include <sds.h>       /* Use libvalkey sds. */
+#include "sds.h"
 #include "ae.h"
 #include <valkey/valkey.h>
 #ifdef USE_OPENSSL
