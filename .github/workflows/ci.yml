@@ -229,14 +229,15 @@ jobs:
       - name: Checkout Valkey
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install build dependencies
-        run: brew install llvm googletest
+        run: |
+          brew update-reset
+          brew install llvm googletest
       - name: make
         # Build with additional upcoming features
         run: |
           export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
           export CC=/opt/homebrew/opt/llvm/bin/clang
           export CXX=/opt/homebrew/opt/llvm/bin/clang++
-          export AR=/opt/homebrew/opt/llvm/bin/llvm-ar
           make -j3 all-with-unit-tests SERVER_CFLAGS='-Werror' USE_FAST_FLOAT=yes USE_LIBBACKTRACE=yes LIBBACKTRACE_PREFIX=/usr/local
 
   build-32bit:
